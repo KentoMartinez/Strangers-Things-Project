@@ -28,8 +28,15 @@ export default function Posts() {
   }, []);
   return (
     <>
+    <Button variant="primary"
+        onClick={() => {
+          navigate("/createposts");
+        }}
+      >
+        Create New Post
+      </Button>
       <div className="Posts">
-        <Container className="d-flex justify-content-between align-items-center">
+        <Container className="d-flex justify-content-between align-items">
           <Row>
             {posts.map((posts) => {
               return (
@@ -70,13 +77,6 @@ export default function Posts() {
           </Row>
         </Container>
       </div>
-      <Button
-        onClick={() => {
-          navigate("/createposts");
-        }}
-      >
-        New Post
-      </Button>
     </>
   );
 }
