@@ -16,7 +16,7 @@ export default function NavbarPlayers() {
     >
       <Container>
         <Navbar.Brand >Stranger Things</Navbar.Brand>
-        <Nav className="me-auto">
+        <Nav className="d-flex justify-content-between align-items-center">
           <Nav.Link
             onClick={() => {
               navigate("/login");
