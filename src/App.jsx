@@ -1,23 +1,19 @@
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Posts from "./components/Posts";
-import Nav from "react-bootstrap/Nav";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import NavbarST from "./components/NavBar";
 
 function App() {
-  const navigate = useNavigate();
-
   return (
     <>
-      <Nav.Link
-        onClick={() => {
-          navigate("/posts");
-        }}
-      >POSTS</Nav.Link>
-      <div>
-        <Routes>
-          <Route path="/posts" element={<Posts />} />
-        </Routes>
-      </div>
+      <NavbarST />
+      <Routes>
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   );
 }
