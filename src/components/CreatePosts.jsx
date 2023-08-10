@@ -87,7 +87,7 @@ export default function CreatePosts() {
         <div key={`inline-${type}`} className="mt-5">
           <Form.Check
             inline
-            label="We do Delivery"
+            label="For Delivery!"
             name="group1"
             type={type}
             id={`inline-${type}-1`}
