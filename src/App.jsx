@@ -5,13 +5,16 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import NavbarST from "./components/NavBar";
 import CreatePosts from "./components/CreatePosts";
-import EditPosts from "./components/EditPost";
+import EditPosts from "./components/EditPosts";
+import SinglePosts from "./components/SinglePosts";
+
 
 function App() {
   return (
     <>
       <NavbarST />
       <Routes>
+        <Route path="/singleposts" element ={<SinglePosts />} />
         <Route path="/editposts" element={<EditPosts />} />
         <Route path="/createposts" element={<CreatePosts />} />
         <Route path="/posts" element={<Posts />} />

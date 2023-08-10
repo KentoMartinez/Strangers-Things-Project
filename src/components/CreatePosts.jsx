@@ -85,7 +85,8 @@ export default function CreatePosts() {
         <Button variant="primary" onClick={handleSubmit} type="submit">
           Submit
         </Button>
-        <Button variant="dark"
+        <Button
+          variant="dark"
           onClick={() => {
             navigate("/posts");
           }}

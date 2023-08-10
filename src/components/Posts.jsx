@@ -48,23 +48,21 @@ export default function Posts() {
                         <Button
                           variant="light"
                           onClick={() => {
-                            navigate("/editposts");
+                            navigate("/singleposts");
                           }}
                         >
-                          Edit
+                          View
                         </Button>
                       </ListGroup.Item>
                       <ListGroup.Item as="li">{posts.author_id}</ListGroup.Item>
                       <ListGroup.Item as="li">
                         {posts.description}
                       </ListGroup.Item>
-                      <ListGroup.Item as="li">
-                        {posts.location} {posts.price}
-                      </ListGroup.Item>
                     </ListGroup>
                   </Col>
                   {/* {posts._id} <br /> 
                 {posts.createdAt} <br />
+                 {posts.location} {posts.price}
                 {posts.updatedAt} <br />
                 {posts.__V} <br />
                 {posts.isAuthor} <br />
