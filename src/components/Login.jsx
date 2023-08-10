@@ -25,8 +25,8 @@ export default function Login() {
           },
           body: JSON.stringify({
             user: {
-              username: { username },
-              password: { password },
+              username:  username ,
+              password: password ,
             },
           }),
         }
