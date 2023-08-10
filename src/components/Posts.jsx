@@ -28,7 +28,8 @@ export default function Posts() {
   }, []);
   return (
     <>
-    <Button variant="primary"
+    <h2>New Posts Every Day</h2>
+    <Button className="my-4" variant="primary"
         onClick={() => {
           navigate("/createposts");
         }}
@@ -43,10 +44,10 @@ export default function Posts() {
                 <>
                   <Col md={6} key={posts.id}>
                     <ListGroup as="ul">
-                      <ListGroup.Item variant="success" as="li" active className="d-flex justify-content-between align-items-center">
+                      <ListGroup.Item variant="light" as="li" active className="d-flex justify-content-between align-items-center">
                         {posts.title}
                         <Button
-                          variant="light"
+                          variant="dark"
                           onClick={() => {
                             navigate("/singleposts");
                           }}
@@ -54,8 +55,7 @@ export default function Posts() {
                           View
                         </Button>
                       </ListGroup.Item>
-                      <ListGroup.Item as="li">{posts.author_id}</ListGroup.Item>
-                      <ListGroup.Item as="li">
+                      <ListGroup.Item variant="dark" as="li">
                         {posts.description}
                       </ListGroup.Item>
                     </ListGroup>

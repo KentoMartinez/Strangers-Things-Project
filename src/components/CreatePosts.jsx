@@ -55,13 +55,14 @@ export default function CreatePosts() {
           <Form.Group className="mb-3" as={Col} controlId="formGridPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
+              placeholder="Enter Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
           </Form.Group>
         </Row>
-        <Row className="mb-3">
+        <Row className="mb-4">
           <Form.Group as={Col} controlId="formGridCity">
             <Form.Label>Location</Form.Label>
             <Form.Control
@@ -81,6 +82,19 @@ export default function CreatePosts() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
+          <Form>
+      {['checkbox'].map((type) => (
+        <div key={`inline-${type}`} className="mt-5">
+          <Form.Check
+            inline
+            label="We do Delivery"
+            name="group1"
+            type={type}
+            id={`inline-${type}-1`}
+          />
+            </div>
+            ))}
+          </Form>
         </Row>
         <Button variant="primary" onClick={handleSubmit} type="submit">
           Submit
