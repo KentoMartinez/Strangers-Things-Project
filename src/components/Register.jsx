@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export default function Register() {
+export default function Register({showMessage}) {
   const [token, setToken] = useState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +35,14 @@ export default function Register() {
 
       //setToken(result.token);
       console.log(result);
+      if(result.error){
+        showMessage(result.error.message,'danger');
+      }else{
+        showMessage("random message",'succes');
+      }
+      
     } catch (error) {
+     
       setError(error.message);
     }
   }
@@ -54,7 +61,6 @@ export default function Register() {
               placeholder="Username"
               value={username}
               aria-describedby="inputGroupPrepend"
-              minlength="8"
               onChange={(e) => setUsername(e.target.value)}
             />
           </InputGroup>

@@ -53,7 +53,6 @@ export default function Login() {
               placeholder="Username"
               value={username}
               aria-describedby="inputGroupPrepend"
-              minlength="8"
               onChange={(e) => setUsername(e.target.value)}
             />
           </InputGroup>
