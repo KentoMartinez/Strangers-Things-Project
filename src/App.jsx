@@ -14,7 +14,7 @@ function App() {
     <>
       <NavbarST />
       <Routes>
-        <Route path="/singleposts" element ={<SinglePosts />} />
+        <Route path="/singleposts/:id" element ={<SinglePosts />} />
         <Route path="/editposts" element={<EditPosts />} />
         <Route path="/createposts" element={<CreatePosts />} />
         <Route path="/posts" element={<Posts />} />
