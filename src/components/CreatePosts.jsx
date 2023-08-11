@@ -10,10 +10,12 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [location, setLocation] = useState();
+  const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     try {
       const response = await fetch(
         `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts`,
@@ -34,14 +36,23 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
         }
       );
       const result = await response.json();
+
+      if(result.error){
+        showMessage(result.error.message,'danger');
+      }else if(result.success){
+        setToken(result.token);
+        navigate("/posts");
+        showMessage(" " + title +" Created " ,'Success');
+      }
       console.log(result);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   }
   return (
     <>
       <h2>Create Post!</h2>
+      {error && <p>{error}</p>}
       <Form onClick={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridTitle">
@@ -83,19 +94,7 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
-          <Form>
-      {['checkbox'].map((type) => (
-        <div key={`inline-${type}`} className="mt-5">
-          <Form.Check
-            inline
-            label="For Delivery!"
-            name="group1"
-            type={type}
-            id={`inline-${type}-1`}
-          />
-            </div>
-            ))}
-          </Form>
+         
         </Row>
         <Button variant="primary" onClick={handleSubmit} type="submit">
           Submit
