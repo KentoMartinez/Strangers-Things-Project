@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 
-export default function CreatePosts() {
+export default function CreatePosts({ token }) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
@@ -21,13 +21,14 @@ export default function CreatePosts() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
             post: {
-              title: { title },
-              description: { description },
-              price: { price },
-              location: { location },
+              title: title ,
+              description: description ,
+              price: price ,
+              location: location ,
             },
           }),
         }
