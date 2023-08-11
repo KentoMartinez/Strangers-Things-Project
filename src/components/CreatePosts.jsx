@@ -3,14 +3,14 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 export default function CreatePosts({ token }) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [location, setLocation] = useState();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   async function handleSubmit(event) {
     event.preventDefault();
