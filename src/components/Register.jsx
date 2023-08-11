@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useNavigate } from "react-router-dom";
 
-export default function Register({showMessage}) {
-  const [token, setToken] = useState();
+export default function Register({showMessage ,token ,setToken}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -33,12 +34,16 @@ export default function Register({showMessage}) {
       );
       const result = await response.json();
 
-      //setToken(result.token);
+      
       console.log(result);
+      
       if(result.error){
         showMessage(result.error.message,'danger');
-      }else{
-        showMessage("random message",'succes');
+      }else if(result.success){
+        setToken(result.token);
+        navigate("/posts");
+        showMessage("user " + username +" created" ,'Success');
+       
       }
       
     } catch (error) {

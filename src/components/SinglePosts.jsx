@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function SinglePosts(){
+export default function SinglePosts({showMessage ,token ,setToken}){
    const { id } = useParams
    const navigate = useNavigate();
    const [singlepost, setSinglePosts] = useState();

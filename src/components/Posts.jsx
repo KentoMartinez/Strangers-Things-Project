@@ -6,7 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function Posts() {
+export default function Posts({showMessage ,token ,setToken}) {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 

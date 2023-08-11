@@ -43,7 +43,7 @@ function App() {
         className="p-3"
         style={{ zIndex: 1 }}
       >
-        <Toast show={show} bg={type} onClose={toggleShow} delay={5000} autohide>
+        <Toast show={show} bg={type.toLowerCase()} onClose={toggleShow} delay={5000} autohide>
           <Toast.Header>
             <strong className="me-auto">{type==="danger"?"Error":type}</strong>
             

@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({showMessage ,token ,setToken}) {
   const [token, setToken] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -33,7 +35,17 @@ export default function Login() {
       );
       const result = await response.json();
 
-      //setToken(result.token);
+      
+      if(result.error){
+        showMessage(result.error.message,'danger');
+      }else if(result.success){
+        setToken(result.token);
+        navigate("/posts");
+        showMessage(" " + username +" Log in" ,'Success');
+       
+        
+      }
+      
       console.log(result);
     } catch (error) {
       setError(error.message);
