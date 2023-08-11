@@ -5,7 +5,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({showMessage ,token ,setToken}) {
-  const [token, setToken] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
