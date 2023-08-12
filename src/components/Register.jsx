@@ -4,11 +4,12 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate } from "react-router-dom";
 
-export default function Register({showMessage ,token ,setToken}) {
+export default function Register({showMessage }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [token, setToken] = useState();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -40,6 +41,7 @@ export default function Register({showMessage ,token ,setToken}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
+        localStorage.setItem('token', result.data.token);
         setToken(result.token);
         navigate("/posts");
         showMessage("user " + username +" created" ,'Success');
