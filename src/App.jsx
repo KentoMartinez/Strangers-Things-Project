@@ -29,7 +29,7 @@ function App() {
     <>
       <NavbarST />
       <Routes>
-        <Route path="/singleposts" element={<SinglePosts showMessage={showMessage} token={token} setToken={setToken} />} />
+        <Route path="/singleposts/:id" element={<SinglePosts showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/editposts" element={<EditPosts showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/createposts" element={<CreatePosts showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/posts" element={<Posts showMessage={showMessage} token={token} setToken={setToken} />} />

@@ -47,22 +47,28 @@ export default function Posts({showMessage ,token ,setToken}) {
                       <ListGroup.Item variant="light" as="li" active className="d-flex justify-content-between align-items-center">
                         {posts.title}
                         <Button
-                          variant="dark"
+                          variant="light"
                           onClick={() => {
-                            navigate("/singleposts");
+                            navigate("/editposts");
                           }}
                         >
-                          View
+                          Edit
                         </Button>
                       </ListGroup.Item>
-                      <ListGroup.Item variant="dark" as="li">
+                      <ListGroup.Item variant="secondary" as="li">
                         {posts.description}
                       </ListGroup.Item>
+                      <ListGroup.Item variant="secondary" as="li">
+                      Location: {posts.location}
+                      </ListGroup.Item>
+                      <ListGroup.Item variant="secondary" as="li">
+                        Price: {posts.price}
+                        </ListGroup.Item>
                     </ListGroup>
                   </Col>
                   {/* {posts._id} <br /> 
                 {posts.createdAt} <br />
-                 {posts.location} {posts.price}
+                
                 {posts.updatedAt} <br />
                 {posts.__V} <br />
                 {posts.isAuthor} <br />
