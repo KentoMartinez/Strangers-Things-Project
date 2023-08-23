@@ -10,7 +10,7 @@ export default function CreatePosts({showMessage}) {
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [location, setLocation] = useState();
-  const [token, setToken] = useState();
+  const [token, setToken] = useState( localStorage.getItem('token'));
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 

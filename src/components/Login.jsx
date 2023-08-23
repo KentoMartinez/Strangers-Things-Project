@@ -39,6 +39,7 @@ export default function Login({showMessage }) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
+        console.log(result.data.token);
         localStorage.setItem('token', result.data.token);
         setToken(result.token);
 
