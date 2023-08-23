@@ -5,11 +5,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom"; 
 
-export default function CreatePosts({showMessage ,token ,setToken}) {
+export default function CreatePosts({showMessage}) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [location, setLocation] = useState();
+  const [token, setToken] = useState();
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
@@ -40,7 +41,8 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
-        setToken(result.token);
+        localStorage.setItem('token', result.data.token);
+        setToken(result.data.token);
         navigate("/posts");
         showMessage(" " + title +" Created " ,'Success');
       }
@@ -53,7 +55,7 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
     <>
       <h2>Create Post!</h2>
       {error && <p>{error}</p>}
-      <Form onClick={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridTitle">
             <Form.Label>Title</Form.Label>
@@ -96,7 +98,7 @@ export default function CreatePosts({showMessage ,token ,setToken}) {
           </Form.Group>
          
         </Row>
-        <Button variant="primary" onClick={handleSubmit} type="submit">
+        <Button variant="primary" type="submit">
           Submit
         </Button>
         <Button
