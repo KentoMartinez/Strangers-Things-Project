@@ -42,6 +42,7 @@ export default function Register({showMessage }) {
         showMessage(result.error.message,'danger');
       }else if(result.success){
         localStorage.setItem('token', result.data.token);
+        localStorage.setItem('username', username);
         //setToken(result.token);
         navigate("/posts");
         showMessage("user " + username +" created" ,'Success');

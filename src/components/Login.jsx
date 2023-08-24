@@ -41,8 +41,8 @@ export default function Login({showMessage }) {
       }else if(result.success){
         console.log(result.data.token);
         localStorage.setItem('token', result.data.token);
+        localStorage.setItem('username', username);
         setToken(result.token);
-
         navigate("/posts");
         showMessage(" " + username +" Log in" ,'Success');
        
