@@ -5,11 +5,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom"; 
 
-export default function EditPosts({showMessage, token , setToken}) {
+export default function EditPosts({showMessage}) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [location, setLocation] = useState();
+  const [token, setToken] = useState( localStorage.getItem('token'));
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
@@ -40,7 +41,8 @@ export default function EditPosts({showMessage, token , setToken}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
-        setToken(result.token);
+        localStorage.setItem('token', result.data.token);
+        setToken(result.data.token);
         navigate("/posts");
         showMessage(" " + title +" Updated " ,'Success');
       }
@@ -49,11 +51,37 @@ export default function EditPosts({showMessage, token , setToken}) {
       setError(error.message);
     }
   }
+  const handleDelete = async () => {
+    try {
+       const response = await fetch(
+         `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/POST_ID`,
+         {
+           method: "DELETE",
+           headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+           }
+         }
+       );
+       const result = await response.json();
+       if(result.error){
+        showMessage(result.error.message,'danger');
+      }else if(result.success){
+        localStorage.setItem('token', result.data.token);
+        setToken(result.data.token);
+        navigate("/posts");
+        showMessage(" " + title +" Deketed " ,'Success');
+      }
+       console.log(result);
+     } catch (error) {
+       console.error(error);
+     }
+   };
   return (
     <>
       <h2>Update Post!</h2>
       {error && <p>{error}</p>}
-      <Form onClick={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridTitle">
             <Form.Label>Title</Form.Label>
@@ -96,9 +124,16 @@ export default function EditPosts({showMessage, token , setToken}) {
           </Form.Group>
          
         </Row>
-        <Button variant="primary" onClick={handleSubmit} type="submit">
-          Submit
+        <Button variant="primary" type="submit">
+          Update
         </Button>
+        <Button
+        variant="danger"
+        onClick={handleDelete}
+        id="delete-button"
+      >
+        Delete
+      </Button>
         <Button
           variant="dark"
           onClick={() => {

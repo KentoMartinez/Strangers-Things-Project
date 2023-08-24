@@ -39,6 +39,7 @@ h1 {
 }
 h2 {
   color: white;
+  margin-block: 5vmin;
 }
 
 button {
