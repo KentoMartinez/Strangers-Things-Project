@@ -43,11 +43,12 @@ export default function Posts() {
                         className="d-flex justify-content-between align-items-center"
                       >
                         {posts.title}
-
+                        
                         <Button
                           variant="light"
                           onClick={() => {
-                            navigate("/post/:id");
+                            localStorage.setItem("post",JSON.stringify(posts));
+                            navigate(`/post/${posts._id}`);
                           }}
                         >
                           View
