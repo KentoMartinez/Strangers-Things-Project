@@ -20,7 +20,7 @@ export default function NavbarPlayers() {
         <Nav className="d-flex justify-content-between align-items-center">
           <Nav.Link
             onClick={() => {
-              navigate("/createposts");
+              navigate("/createpost");
             }}
           >
             New Post

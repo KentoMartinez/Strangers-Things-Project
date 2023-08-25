@@ -19,7 +19,7 @@ export default function EditPosts({showMessage}) {
 
     try {
       const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/POST_ID`,
+        `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -51,32 +51,6 @@ export default function EditPosts({showMessage}) {
       setError(error.message);
     }
   }
-  const handleDelete = async () => {
-    try {
-       const response = await fetch(
-         `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/POST_ID`,
-         {
-           method: "DELETE",
-           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-           }
-         }
-       );
-       const result = await response.json();
-       if(result.error){
-        showMessage(result.error.message,'danger');
-      }else if(result.success){
-        localStorage.setItem('token', result.data.token);
-        setToken(result.data.token);
-        navigate("/posts");
-        showMessage(" " + title +" Deketed " ,'Success');
-      }
-       console.log(result);
-     } catch (error) {
-       console.error(error);
-     }
-   };
   return (
     <>
       <h2>Update Post!</h2>
@@ -128,19 +102,12 @@ export default function EditPosts({showMessage}) {
           Update
         </Button>
         <Button
-        variant="danger"
-        onClick={handleDelete}
-        id="delete-button"
-      >
-        Delete
-      </Button>
-        <Button
           variant="dark"
           onClick={() => {
-            navigate("/posts");
+            navigate("/post/:id");
           }}
         >
-          Back{" "}
+          Back
         </Button>
       </Form>
     </>

@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/esm/Button";
+import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
 
-export default function Posts({showMessage ,token ,setToken}) {
+export default function Posts() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     async function fetchPosts() {
       try {
@@ -28,44 +27,44 @@ export default function Posts({showMessage ,token ,setToken}) {
   }, []);
   return (
     <>
-    <h2>New Posts Every Day</h2>
-    <Button className="my-4" variant="primary"
-        onClick={() => {
-          navigate("/createposts");
-        }}
-      >
-        Create New Post
-      </Button>
+      <h2>New Posts Every Day</h2>
       <div className="Posts">
         <Container className="d-flex justify-content-between align-items">
           <Row>
             {posts.map((posts) => {
               return (
                 <>
-                  <Col md={6} key={posts.id}>
+                  <Col md={6} key={posts._id}>
                     <ListGroup as="ul">
-                      <ListGroup.Item variant="light" as="li" active className="d-flex justify-content-between align-items-center">
+                      <ListGroup.Item
+                        variant="light"
+                        as="li"
+                        active
+                        className="d-flex justify-content-between align-items-center"
+                      >
                         {posts.title}
+
                         <Button
                           variant="light"
                           onClick={() => {
-                            navigate("/editposts");
+                            navigate("/post/:id");
                           }}
                         >
-                          Edit
+                          View
                         </Button>
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
                         {posts.description}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                      Location: {posts.location}
+                        Location: {posts.location}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
                         Price: {posts.price}
-                        </ListGroup.Item>
+                      </ListGroup.Item>
                     </ListGroup>
                   </Col>
+
                   {/* {posts._id} <br /> 
                 {posts.createdAt} <br />
                 

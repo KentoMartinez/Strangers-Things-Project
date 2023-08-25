@@ -1,28 +1,37 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams} from "react-router-dom"
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function SinglePosts({showMessage ,token ,setToken}){
-   const { id } = useParams ();
+export default function SinglePosts({showMessage}){
+   const { id } = useParams();
    const navigate = useNavigate();
-   const [singlepost, setSinglePosts] = useState();
+   const [singlePost, setSinglePost] = useState();
+   const [token, setToken] = useState( localStorage.getItem('token'));
+   const [error, setError] = useState(null);
    useEffect(() => {
-      async function fetchSinglePosts() {
+      async function fetchSinglePost() {
          try {
             const response = await fetch(
                `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/${id}`
             );
             const result = await response.json();
-            setSinglePosts(result.data.post);
+            if(result.error){
+              showMessage(result.error.message,'danger');
+            }else if(result.success){
+              localStorage.setItem('token', result.data.token);
+              setToken(result.data.token);
+              showMessage(" " + id +" " ,'Success');
+            }
+            setSinglePost(result.data.post);
          } catch (error) {
-            console.error(error)
+            setError(error.message);
          }
       }
-      fetchSinglePosts();
-   }, [id]);
+      fetchSinglePost();
+   }, [id, showMessage]);
    const handleDelete = async () => {
       try {
          const response = await fetch(
@@ -43,22 +52,24 @@ export default function SinglePosts({showMessage ,token ,setToken}){
      };
    return(
       <>
-      <h1>hello</h1>
+      <h2>Post</h2>
+      {singlePost && (
      <Row>
-      <Col md={6} key={singlepost._id}>
+      <Col md={6} key={singlePost._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item variant="success" as="li" active className="d-flex justify-content-between align-items-center">
-                        {singlepost.title}
+                        {singlePost.title}
                         </ListGroup.Item>
-                      <ListGroup.Item as="li">{singlepost.author.username}</ListGroup.Item>
+                      <ListGroup.Item as="li">{singlePost.author.username}</ListGroup.Item>
                       <ListGroup.Item as="li">
-                        {singlepost.description}
+                        {singlePost.description}
                       </ListGroup.Item>
-                      <ListGroup.Item as="li">{singlepost.location}</ListGroup.Item>
-                      <ListGroup.Item as="li">{singlepost.price}</ListGroup.Item>
+                      <ListGroup.Item as="li">{singlePost.location}</ListGroup.Item>
+                      <ListGroup.Item as="li">{singlePost.price}</ListGroup.Item>
                     </ListGroup>
                   </Col>
       </Row>
+      )}
       <Button
         variant="danger"
         onClick={handleDelete}
@@ -67,13 +78,21 @@ export default function SinglePosts({showMessage ,token ,setToken}){
         Delete
       </Button>
       <Button
-        variant="dark"
+        variant="success"
         onClick={() => {
-          navigate("/posts");
+          navigate("/editpost");
         }}
       >
-        Back
+        Edit
       </Button>
+      <Button
+          variant="dark"
+          onClick={() => {
+            navigate("/posts");
+          }}
+        >
+          Back{" "}
+        </Button>
       </>
    );
 }

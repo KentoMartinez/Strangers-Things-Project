@@ -29,9 +29,9 @@ function App() {
     <>
       <NavbarST />
       <Routes>
-        <Route path="/singleposts/:id" element={<SinglePosts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/editposts" element={<EditPosts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/createposts" element={<CreatePosts showMessage={showMessage} token={token} setToken={setToken} />} />
+        <Route path="/post/:id" element={<SinglePosts showMessage={showMessage} token={token} setToken={setToken} />} />
+        <Route path="/editpost" element={<EditPosts showMessage={showMessage} token={token} setToken={setToken} />} />
+        <Route path="/createpost" element={<CreatePosts showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/posts" element={<Posts showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/register" element={<Register showMessage={showMessage} token={token} setToken={setToken} />} />
         <Route path="/login" element={<Login showMessage={showMessage} token={token} setToken={setToken} />} />
