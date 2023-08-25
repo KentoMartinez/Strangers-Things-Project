@@ -34,7 +34,7 @@ export default function Posts() {
             {posts.map((posts) => {
               return (
                 <>
-                  <Col md={6} key={posts._id}>
+                  <Col md={12} className="mb-3" key={posts._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
                         variant="light"
