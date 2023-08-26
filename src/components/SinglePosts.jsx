@@ -8,8 +8,10 @@ import Col from "react-bootstrap/Col";
 export default function SinglePosts({ showMessage }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [singlePost, setSinglePost] = useState(JSON.parse(localStorage.getItem("post")));
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [singlePost, setSinglePost] = useState(
+    JSON.parse(localStorage.getItem("post"))
+  );
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [error, setError] = useState(null);
   useEffect(() => {
     async function fetchSinglePost() {
@@ -45,7 +47,7 @@ export default function SinglePosts({ showMessage }) {
       <h2>Post</h2>
       {singlePost && (
         <Row>
-          <Col md={6} key={singlePost._id}>
+          <Col md={12} key={singlePost._id}>
             <ListGroup as="ul">
               <ListGroup.Item
                 variant="success"
@@ -54,27 +56,29 @@ export default function SinglePosts({ showMessage }) {
                 className="d-flex justify-content-between align-items-center"
               >
                 {singlePost.title}
+                <Button
+                  variant="light"
+                  onClick={() => {
+                    navigate("/editpost");
+                  }}
+                >
+                  Edit
+                </Button>
               </ListGroup.Item>
               <ListGroup.Item as="li">
-                {singlePost.author.username}
+              {singlePost.author.username}
               </ListGroup.Item>
+              <ListGroup.Item as="li">{singlePost._id}</ListGroup.Item>
               <ListGroup.Item as="li">{singlePost.description}</ListGroup.Item>
               <ListGroup.Item as="li">{singlePost.location}</ListGroup.Item>
               <ListGroup.Item as="li">{singlePost.price}</ListGroup.Item>
+              <ListGroup.Item as="li">{singlePost.message}</ListGroup.Item>
             </ListGroup>
           </Col>
         </Row>
       )}
       <Button variant="danger" onClick={handleDelete} id="delete-button">
         Delete
-      </Button>
-      <Button
-        variant="success"
-        onClick={() => {
-          navigate("/editpost");
-        }}
-      >
-        Edit
       </Button>
       <Button
         variant="dark"

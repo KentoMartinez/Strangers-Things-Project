@@ -37,7 +37,7 @@ export default function Posts() {
                   <Col md={12} className="mb-3" key={posts._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
-                        variant="light"
+                        variant="success"
                         as="li"
                         active
                         className="d-flex justify-content-between align-items-center"
