@@ -41,7 +41,7 @@ export default function SinglePosts({ showMessage }) {
         }
       );
       const result = await response.json();
-      console.log(result);
+      showMessage(result.error.message,'danger');
     } catch (error) {
       console.error(error);
     }
