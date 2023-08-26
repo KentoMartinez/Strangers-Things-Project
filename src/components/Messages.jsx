@@ -5,30 +5,31 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
 
-export default function Posts() {
+export default function Profile() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  const [token, setToken] = useState( localStorage.getItem('token'));
-
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     async function fetchPosts() {
-      console.log(token);
       try {
         const response = await fetch(
-          `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            }
-          }
+          `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts`
         );
 
         const result = await response.json();
-        setPosts(result.data.posts);
-        console.log(result);
+
+        let allposts = result.data.posts;
+        //filter post my username
+        let Myposts = allposts.filter(
+          (post) => post.author.username === username
+        );
+
+        console.log(Myposts);
+
+        setPosts(Myposts);
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +38,7 @@ export default function Posts() {
   }, []);
   return (
     <>
-      <h2>New Posts Every Day</h2>
+      <h2>My Messages</h2>
       <div className="Posts">
         <Container className="d-flex justify-content-between align-items">
           <Row>
@@ -47,17 +48,21 @@ export default function Posts() {
                   <Col md={12} className="mb-3" key={posts._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
-                        variant="success"
+                        variant="light"
                         as="li"
                         active
                         className="d-flex justify-content-between align-items-center"
                       >
-                        {posts.title}
-                        
+                        <div className="fw-bold ms-2 me-auto"> {posts.title}</div>
+
+                        <Badge bg="primary" pill>
+                          {posts.messages.length}
+                        </Badge>
+
                         <Button
                           variant="light"
                           onClick={() => {
-                            localStorage.setItem("post",JSON.stringify(posts));
+                            localStorage.setItem("post", JSON.stringify(posts));
                             navigate(`/post/${posts._id}`);
                           }}
                         >
@@ -75,16 +80,6 @@ export default function Posts() {
                       </ListGroup.Item>
                     </ListGroup>
                   </Col>
-
-                  {/* {posts._id} <br /> 
-                {posts.createdAt} <br />
-                
-                {posts.updatedAt} <br />
-                {posts.__V} <br />
-                {posts.isAuthor} <br />
-                {posts.active} <br />
-                {posts.message} <br />
-                {posts.willDeliver} <br /> */}
                 </>
               );
             })}
