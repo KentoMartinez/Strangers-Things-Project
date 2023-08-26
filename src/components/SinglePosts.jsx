@@ -163,8 +163,8 @@ export default function SinglePosts({ showMessage }) {
                 </>
               )}
             </ListGroup>
-          </Col>{
-            singlePost.author.username === username?
+          </Col>
+            
           <Form onSubmit={sendMessage}>
             <Form.Group className="mb-3" controlId="Message">
               <Form.Label>Send a Message</Form.Label>
@@ -177,10 +177,7 @@ export default function SinglePosts({ showMessage }) {
                 Send
               </Button>
             </Form.Group>
-          </Form>:
-          <>
-          </>
-          }
+          </Form>
         </Row>
       )}
     </>
