@@ -10,13 +10,13 @@ import SinglePosts from "./components/SinglePosts";
 import Toast from "react-bootstrap/Toast";
 import { useState } from "react";
 import ToastContainer from "react-bootstrap/ToastContainer";
+import Profile from "./components/profile";
 
 function App() {
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
-  const [token, setToken] = useState();
 
   function showMessage(msg, typ) {
 
@@ -29,12 +29,13 @@ function App() {
     <>
       <NavbarST />
       <Routes>
-        <Route path="/post/:id" element={<SinglePosts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/editpost" element={<EditPosts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/createpost" element={<CreatePosts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/posts" element={<Posts showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/register" element={<Register showMessage={showMessage} token={token} setToken={setToken} />} />
-        <Route path="/login" element={<Login showMessage={showMessage} token={token} setToken={setToken} />} />
+        <Route path="/post/:id" element={<SinglePosts showMessage={showMessage}  />} />
+        <Route path="/editpost" element={<EditPosts showMessage={showMessage}  />} />
+        <Route path="/createpost" element={<CreatePosts showMessage={showMessage}  />} />
+        <Route path="/posts" element={<Posts showMessage={showMessage}  />} />
+        <Route path="/register" element={<Register showMessage={showMessage} />} />
+        <Route path="/login" element={<Login showMessage={showMessage}  />} />
+        <Route path="/profile" element={<Profile showMessage={showMessage}  />} />
       </Routes>
 
       

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -13,13 +13,32 @@ export default function EditPosts({showMessage}) {
   const [token, setToken] = useState( localStorage.getItem('token'));
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
+  const [singlePost, setSinglePost] = useState(
+    JSON.parse(localStorage.getItem("post"))
+  );
+
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        setTitle(singlePost.title);
+        setDescription(singlePost.description);
+        setPrice(singlePost.price);
+        setLocation(singlePost.location);
+        setToken(localStorage.getItem('token'));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchPosts();
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
       const response = await fetch(
-        `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/${id}`,
+        `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/${singlePost._id}`,
         {
           method: "PATCH",
           headers: {
@@ -41,20 +60,18 @@ export default function EditPosts({showMessage}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
-        localStorage.setItem('token', result.data.token);
-        setToken(result.data.token);
         navigate("/posts");
         showMessage(" " + title +" Updated " ,'Success');
       }
       console.log(result);
     } catch (error) {
+      showMessage(error.message,'danger');
       setError(error.message);
     }
   }
   return (
     <>
       <h2>Update Post!</h2>
-      {error && <p>{error}</p>}
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridTitle">

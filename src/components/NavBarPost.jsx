@@ -32,6 +32,15 @@ export default function NavbarPlayers() {
           >
             All Posts
           </Nav.Link>
+
+          <Nav.Link
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </Nav.Link>
+
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>Signed in as : </Navbar.Text>
