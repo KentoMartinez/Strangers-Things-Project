@@ -65,6 +65,11 @@ export default function Profile() {
                       >
                         <div className="fw-bold ms-2 me-auto"> {post.title}</div>
 
+                        <Badge bg="primary" pill>
+                          {post.messages.length}
+                        </Badge>
+                        
+
                         <Button
                           variant="light"
                           onClick={() => {
