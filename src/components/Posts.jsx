@@ -92,16 +92,6 @@ export default function Posts() {
                       </ListGroup.Item>
                     </ListGroup>
                   </Col>
-
-                  {/* {posts._id} <br /> 
-                {posts.createdAt} <br />
-                
-                {posts.updatedAt} <br />
-                {posts.__V} <br />
-                {posts.isAuthor} <br />
-                {posts.active} <br />
-                {posts.message} <br />
-                {posts.willDeliver} <br /> */}
                 </>
               );
             })}

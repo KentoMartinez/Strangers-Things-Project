@@ -135,12 +135,18 @@ export default function SinglePosts({ showMessage }) {
                 )}
               </ListGroup.Item>
               <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="fw-bold"> User: </div>
                 {singlePost.author.username}
               </ListGroup.Item>
-              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">{singlePost._id}</ListGroup.Item>
-              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">{singlePost.description}</ListGroup.Item>
-              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">{singlePost.location}</ListGroup.Item>
-              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">{singlePost.price}</ListGroup.Item>
+              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+                 <div className="fw-bold"> Description: </div>
+              {singlePost.description}</ListGroup.Item>
+              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="fw-bold"> Location: </div>
+               {singlePost.location}</ListGroup.Item>
+              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="fw-bold"> Price: </div>
+              {singlePost.price}</ListGroup.Item>
               
               {singlePost.messages.length>0?
               <ListGroup.Item as="li" variant="primary" className="d-flex justify-content-center "><div className="fw-bold">Messages</div></ListGroup.Item>:
