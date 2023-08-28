@@ -16,6 +16,7 @@ export default function CreatePosts({showMessage}) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setToken(localStorage.getItem("token"));
 
     try {
       const response = await fetch(
@@ -41,8 +42,6 @@ export default function CreatePosts({showMessage}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
-        localStorage.setItem('token', result.data.token);
-        setToken(result.data.token);
         navigate("/posts");
         showMessage(" " + title +" Created " ,'Success');
       }

@@ -20,6 +20,7 @@ export default function SinglePosts({ showMessage }) {
   useEffect(() => {
     async function fetchSinglePost() {
       try {
+        setToken(localStorage.getItem("token"));
         console.log(token);
         console.log(singlePost);
       } catch (error) {
@@ -28,7 +29,9 @@ export default function SinglePosts({ showMessage }) {
     }
     fetchSinglePost();
   }, []);
+
   const handleDelete = async () => {
+    console.log(token);
     try {
       const response = await fetch(
         `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts/${id}`,
@@ -41,7 +44,12 @@ export default function SinglePosts({ showMessage }) {
         }
       );
       const result = await response.json();
-      showMessage(result.error.message,'danger');
+      if (result.error) {
+        showMessage(result.error.message, "danger");
+      } else if (result.success) {
+        navigate("/posts");
+        showMessage(" Post deleted ", "Warning");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -97,7 +105,7 @@ export default function SinglePosts({ showMessage }) {
           <Col md={12} key={singlePost._id}>
             <ListGroup as="ul">
               <ListGroup.Item
-                variant="success"
+                variant="primary"
                 as="li"
                 active
                 className="d-flex justify-content-between align-items-center"

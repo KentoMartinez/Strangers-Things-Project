@@ -58,7 +58,7 @@ export default function Profile() {
                   <Col md={12} className="mb-3" key={post._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
-                        variant="light"
+                        variant="primary"
                         as="li"
                         active
                         className="d-flex justify-content-between align-items-center"

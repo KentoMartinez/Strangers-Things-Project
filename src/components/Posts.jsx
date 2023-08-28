@@ -5,12 +5,14 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const [token, setToken] = useState( localStorage.getItem('token'));
-
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchPosts() {
@@ -38,16 +40,31 @@ export default function Posts() {
   return (
     <>
       <h2>New Posts Every Day</h2>
+      <Form>
+        <InputGroup bg="dark" data-bs-theme="dark" className="mb-3">
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search posts"
+          />
+        </InputGroup>
+      </Form>
       <div className="Posts">
         <Container className="d-flex justify-content-between align-items">
           <Row>
-            {posts.map((post) => {
-              return (
+          {posts
+              .filter((posts) => {
+                return search.toLowerCase() === ""
+                  ? posts
+                  : posts.title.toLowerCase().includes(search) || posts.description.toLowerCase().includes(search) ||
+                  posts.price.toLowerCase().includes(search) ;
+              })
+              .map((post) => {
+                return (
                 <>
                   <Col md={12} className="mb-3" key={post._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
-                        variant="success"
+                        variant="primary"
                         as="li"
                         active
                         className="d-flex justify-content-between align-items-center"

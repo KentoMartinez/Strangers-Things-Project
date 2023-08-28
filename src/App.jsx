@@ -10,7 +10,7 @@ import SinglePosts from "./components/SinglePosts";
 import Toast from "react-bootstrap/Toast";
 import { useState } from "react";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import Profile from "./components/profile";
+import Profile from "./components/Profile";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -46,7 +46,7 @@ function App() {
       >
         <Toast show={show} bg={type.toLowerCase()} onClose={toggleShow} delay={5000} autohide>
           <Toast.Header>
-            <strong className="me-auto">{type==="danger"?"Error":type}</strong>
+            <strong className="me-auto">{type==="danger"?"Error":type==="Warning"?"Succes":type}</strong>
             
           </Toast.Header>
           <Toast.Body>{message}</Toast.Body>
