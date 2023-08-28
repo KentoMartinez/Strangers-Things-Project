@@ -90,6 +90,9 @@ export default function Posts() {
                       <ListGroup.Item variant="secondary" as="li">
                         Price: {post.price}
                       </ListGroup.Item>
+                      <ListGroup.Item variant="secondary" as="li">
+                       will Deliver: {post.willDeliver? "Yes":"No"}
+                      </ListGroup.Item>
                     </ListGroup>
                   </Col>
                 </>

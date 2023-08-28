@@ -14,6 +14,7 @@ export default function SinglePosts({ showMessage }) {
   );
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [error, setError] = useState(null);
+  const [willDeliver, setWillDeliver] = useState(false);
   const username = localStorage.getItem("username");
   const [message, setMessage] = useState("");
 
@@ -147,6 +148,9 @@ export default function SinglePosts({ showMessage }) {
               <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
               <div className="fw-bold"> Price: </div>
               {singlePost.price}</ListGroup.Item>
+              <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="fw-bold"> will Deliver: </div>
+              {singlePost.willDeliver? "Yes" : "No"}</ListGroup.Item>
               
               {singlePost.messages.length>0?
               <ListGroup.Item as="li" variant="primary" className="d-flex justify-content-center "><div className="fw-bold">Messages</div></ListGroup.Item>:

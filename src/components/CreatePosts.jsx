@@ -12,11 +12,11 @@ export default function CreatePosts({showMessage}) {
   const [location, setLocation] = useState();
   const [token, setToken] = useState( localStorage.getItem('token'));
   const [error, setError] = useState(null);
+  const [willDeliver, setWillDeliver] = useState(false);
   const navigate = useNavigate(); 
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setToken(localStorage.getItem("token"));
 
     try {
       const response = await fetch(
@@ -33,6 +33,7 @@ export default function CreatePosts({showMessage}) {
               description: description ,
               price: price ,
               location: location ,
+              willDeliver : willDeliver
             },
           }),
         }
@@ -42,6 +43,8 @@ export default function CreatePosts({showMessage}) {
       if(result.error){
         showMessage(result.error.message,'danger');
       }else if(result.success){
+        localStorage.setItem('token', result.data.token);
+        setToken(result.data.token);
         navigate("/posts");
         showMessage(" " + title +" Created " ,'Success');
       }
@@ -53,9 +56,9 @@ export default function CreatePosts({showMessage}) {
   return (
     <>
       <h2>Create Post!</h2>
-      {error && <p>{error}</p>}
+      
       <Form onSubmit={handleSubmit}>
-        <Row className="mb-3">
+        
           <Form.Group as={Col} controlId="formGridTitle">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -74,8 +77,8 @@ export default function CreatePosts({showMessage}) {
               onChange={(e) => setPrice(e.target.value)}
             />
           </Form.Group>
-        </Row>
-        <Row className="mb-4">
+        
+        
           <Form.Group as={Col} controlId="formGridCity">
             <Form.Label>Location</Form.Label>
             <Form.Control
@@ -95,8 +98,21 @@ export default function CreatePosts({showMessage}) {
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
+
          
-        </Row>
+        
+        
+        <Form.Check 
+            type='checkbox'
+            id='deliver'
+            label='Willing to Deliver?'
+            checked={willDeliver}
+            onChange={()=>{
+              setWillDeliver(!willDeliver);
+            }}
+          />
+        
+        
         <Button variant="primary" type="submit">
           Submit
         </Button>

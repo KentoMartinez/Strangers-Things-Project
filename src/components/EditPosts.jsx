@@ -13,6 +13,7 @@ export default function EditPosts({showMessage}) {
   const [token, setToken] = useState( localStorage.getItem('token'));
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
+  const [willDeliver, setWillDeliver] = useState(false);
   const [singlePost, setSinglePost] = useState(
     JSON.parse(localStorage.getItem("post"))
   );
@@ -26,6 +27,7 @@ export default function EditPosts({showMessage}) {
         setPrice(singlePost.price);
         setLocation(singlePost.location);
         setToken(localStorage.getItem('token'));
+        setWillDeliver(singlePost.willDeliver);
       } catch (error) {
         console.error(error);
       }
@@ -115,6 +117,15 @@ export default function EditPosts({showMessage}) {
           </Form.Group>
          
         </Row>
+        <Form.Check 
+            type='checkbox'
+            id='deliver'
+            label='Willing to Deliver?'
+            checked={willDeliver}
+            onChange={()=>{
+              setWillDeliver(!willDeliver);
+            }}
+          />
         <Button variant="primary" type="submit">
           Update
         </Button>
