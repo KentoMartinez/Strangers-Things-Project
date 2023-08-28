@@ -41,10 +41,10 @@ export default function Posts() {
       <div className="Posts">
         <Container className="d-flex justify-content-between align-items">
           <Row>
-            {posts.map((posts) => {
+            {posts.map((post) => {
               return (
                 <>
-                  <Col md={12} className="mb-3" key={posts._id}>
+                  <Col md={12} className="mb-3" key={post._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
                         variant="success"
@@ -52,26 +52,26 @@ export default function Posts() {
                         active
                         className="d-flex justify-content-between align-items-center"
                       >
-                        {posts.title}
+                        {post.title}
                         
                         <Button
                           variant="light"
                           onClick={() => {
-                            localStorage.setItem("post",JSON.stringify(posts));
-                            navigate(`/post/${posts._id}`);
+                            localStorage.setItem("post",JSON.stringify(post));
+                            navigate(`/post/${post._id}`);
                           }}
                         >
                           View
                         </Button>
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        {posts.description}
+                        {post.description}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        Location: {posts.location}
+                        Location: {post.location}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        Price: {posts.price}
+                        Price: {post.price}
                       </ListGroup.Item>
                     </ListGroup>
                   </Col>

@@ -6,46 +6,56 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
+import Posts from "./Posts";
 
 export default function Profile() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const username = localStorage.getItem("username");
+  const[numerMessages, setNumerMessages] = useState(0);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
         const response = await fetch(
-          `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts`
+          `https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/posts`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            }
+          }
         );
 
         const result = await response.json();
 
         let allposts = result.data.posts;
         //filter post my username
+        console.log(result.data.posts);
         let Myposts = allposts.filter(
           (post) => post.author.username === username
         );
 
-        console.log(Myposts);
-
         setPosts(Myposts);
+        console.log(Myposts);
       } catch (error) {
         console.error(error);
       }
     }
     fetchPosts();
-  }, []);
+  }, [username]);
   return (
     <>
       <h2>My posts</h2>
       <div className="Posts">
         <Container className="d-flex justify-content-between align-items">
           <Row>
-            {posts.map((posts) => {
+            {posts.map((post) => {
+              
               return (
                 <>
-                  <Col md={12} className="mb-3" key={posts._id}>
+                  <Col md={12} className="mb-3" key={post._id}>
                     <ListGroup as="ul">
                       <ListGroup.Item
                         variant="light"
@@ -53,43 +63,29 @@ export default function Profile() {
                         active
                         className="d-flex justify-content-between align-items-center"
                       >
-                        <div className="fw-bold ms-2 me-auto"> {posts.title}</div>
-
-                        <Badge bg="primary" pill>
-                          {posts.messages.length}
-                        </Badge>
+                        <div className="fw-bold ms-2 me-auto"> {post.title}</div>
 
                         <Button
                           variant="light"
                           onClick={() => {
-                            localStorage.setItem("post", JSON.stringify(posts));
-                            navigate(`/post/${posts._id}`);
+                            localStorage.setItem("post", JSON.stringify(post));
+                            navigate(`/post/${post._id}`);
                           }}
                         >
                           View
                         </Button>
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        {posts.description}
+                        {post.description}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        Location: {posts.location}
+                        Location: {post.location}
                       </ListGroup.Item>
                       <ListGroup.Item variant="secondary" as="li">
-                        Price: {posts.price}
+                        Price: {post.price}
                       </ListGroup.Item>
                     </ListGroup>
                   </Col>
-
-                  {/* {posts._id} <br /> 
-                {posts.createdAt} <br />
-                
-                {posts.updatedAt} <br />
-                {posts.__V} <br />
-                {posts.isAuthor} <br />
-                {posts.active} <br />
-                {posts.message} <br />
-                {posts.willDeliver} <br /> */}
                 </>
               );
             })}
